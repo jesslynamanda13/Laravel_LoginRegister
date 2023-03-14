@@ -24,12 +24,13 @@ class SessionController extends Controller
 
         $request->validate([
             'email'=>'required',
-            'password' => 'required'
+            'password' => 'required' 
         ], [
             'email.required' => 'Email wajib diisi',
             'password.required' => 'Password wajib diisi',
-
         ]);
+
+   
 
         $infologin = [
             'email'=> $request->email,
@@ -55,25 +56,29 @@ class SessionController extends Controller
         return view('register');
     }
     function create(Request $request){
+        $validated = $request->validate([
+            'name' => 'required|min:5|max:255',
+            'email'=>'required|email|unique:users',
+            'password' => 'required|min:6|confirmed',
+            'password_confirmation' => 'required|min:6',
+            'DOB' => 'required',
+            'POB' => 'required',
+            'notelp' => 'required|min:9|max:12',
+            'gender' => 'required'
+        ]);
+
         Session::flash('name', $request->name);
         Session::flash('email', $request->email);
 
-        $request->validate([
-            'name' => 'required',
-            'email'=>'required|email|unique:users',
-            'password' => 'required|min:6'
-        ], [
-            'name.required' => 'Nama wajib diisi',
-            'email.required' => 'Email wajib diisi',
-            'email.email' => 'Masukkan email yang valid',
-            'email.unique' => 'Email sudah pernah digunakan',
-            'password.required' => 'Password wajib diisi',
-            'password.min' => 'Minimum password yang diizinkan 6'
-        ]);
         $data = [
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password)
+            'password' => Hash::make($request->password),
+            'password_confirmation' =>  Hash::make($request->password_confirmation),
+            'DOB' =>$request->DOB,
+            'POB' => $request->POB,
+            'notelp' => $request->notelp,
+            'gender' =>$request->gender
         ];
         User::create($data);
 

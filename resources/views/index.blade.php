@@ -22,11 +22,19 @@
                     <label for = "password" class = "form-label">Password</label>
                     <input type = "password" name = "password" class = "form-control">
                 </div>
+                
+                <div class="form-check form-check-lg d-flex align-items-end">
+                    <input class = "form-check-input me-2" type = "checkbox" value = "remember_me" id = "remember_me" name = "remember_me">
+                    <label class = "form-check-label text-gray-600" for = "flexCheckDefault">
+                        Remember me
+                    </label>
+                </div>
 
                 <div class="mb-3 d-grid">
                     <button name = "submit" type = "submit" class = "btn btn-primary">Login</button>
                 </div>
             </form>
+            <a href="/sesi/register">Register first</a>
         </div>
     </section>
 </body>
